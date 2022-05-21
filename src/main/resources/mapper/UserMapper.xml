@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jason.springsecuritydemo.mapper.UserMapper">
+
+    <select id="selectAllRoleByUserId" resultType="string" >
+        SELECT
+            r.NAME
+        FROM
+            t_role_user ru,
+            t_role r
+        WHERE
+            r.id = ru.rid
+            AND ru.uid = #{uid}
+    </select>
+
+    <select id="selectPermissionsByUserId" resultType="string" >
+        SELECT
+            m.permission
+        FROM
+            t_role_user ru,
+            t_role r,
+            t_role_menu rm,
+            t_menu m
+        WHERE
+            r.id = ru.rid
+            AND ru.rid = rm.rid
+            AND rm.mid = m.id
+            AND ru.uid = #{uid}
+    </select>
+</mapper>
